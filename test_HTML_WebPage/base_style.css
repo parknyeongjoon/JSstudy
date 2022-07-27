@@ -1,0 +1,31 @@
+a {
+  color: blue;
+}
+
+h1 {
+  font-size: 50px;
+  text-align: center;
+  border-bottom: 3px solid;
+  margin: 5px;
+  padding-bottom: 15px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  border: 1px solid black;
+  font-size: 15px;
+}
+
+#mainList {
+  border-right: 1px solid;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-left: 75px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.grid>div {
+  padding: 20px;
+}
