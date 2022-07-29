@@ -2,30 +2,58 @@ a {
   color: blue;
 }
 
-h1 {
+header {
   font-size: 50px;
   text-align: center;
-  border-bottom: 3px solid;
-  margin: 5px;
+  border-bottom: 4px solid;
+  margin: 0px;
   padding-bottom: 15px;
 }
 
-.grid {
+#mainBody{
   display: grid;
-  grid-template-columns: 300px 1fr;
-  border: 1px solid black;
-  font-size: 15px;
+  grid-template-columns: auto 1fr;
 }
 
-#mainList {
-  border-right: 1px solid;
-  margin-top: 0px;
-  margin-bottom: 0px;
-  margin-left: 75px;
-  padding-top: 15px;
-  padding-bottom: 15px;
+#mainList{
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 0px;
+  border-right: 2px solid black;
 }
 
-.grid>div {
+#year-month, .nav{
+  text-align: center;
+  margin: 10px;
+}
+
+table.calendar{
+  border-collapse: collapse;
+}
+
+thead{
+  font-weight: bold;
+  background-color: lightgray;
+  font-size:30px;
+}
+
+th{
+  border: 2px solid black;
+  padding: 10px;
+}
+
+td{
+  border: 2px solid black;
+  text-align: center;
   padding: 20px;
+}
+
+.Saturday{
+  color:blue;
+}
+.Sunday{
+  color:red;
+}
+.PrevDate, .NextDate{
+  color: gray;
 }

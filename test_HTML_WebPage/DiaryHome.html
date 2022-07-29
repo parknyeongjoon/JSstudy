@@ -1,0 +1,115 @@
+<!doctype html>
+<html>
+
+<head>
+  <title> nyeong's_Diary </title>
+  <link rel="stylesheet" href="base_style.css">
+</head>
+
+<script>
+  const date = new Date();
+
+  var curYear = date.getFullYear();
+  var curMonth = date.getMonth();
+
+  function SetYM(year, month) {
+    //년 월을 표시
+    var year_month = document.querySelector('#year-month');
+    year_month.textContent = year + '년 ' + (month + 1) + '월';
+    //지난 달과 다음 달 중 함께 표시될 부분 구하기
+    const prevLast = new Date(year, month, 0);
+    const thisLast = new Date(year, month + 1, 0);
+
+    const PLDate = prevLast.getDate();
+    const PLDay = prevLast.getDay();
+
+    const TLDate = thisLast.getDate();
+    const TLDay = thisLast.getDay();
+    //지난 달의 날짜와 이번 달의 날짜 다음 달의 날짜를 배열에 담기
+    const prevDates = [];
+    const thisDates = Array.from({ length: TLDate }, (v, i) => i + 1);
+    const nextDates = [];
+    for (let i = 0; i <= PLDay; i++) {
+      prevDates.unshift(PLDate - i);
+    }
+
+    for (let i = 1; i < 7 - TLDay; i++) {
+      nextDates.push(i);
+    }
+
+    const dates = prevDates.concat(thisDates, nextDates);
+
+    var tbody = document.querySelector('.dates');
+    //미리 그려진 달력이 있다면 삭제
+    while (tbody.hasChildNodes()) {
+      tbody.removeChild(tbody.firstChild);
+    }
+    //최적화 위해서는 length 밖으로 빼주기
+    let row = document.createElement("tr");
+    for (let i = 0; i < dates.length; i++) {
+      let data = document.createElement("td");
+      data.innerHTML = dates[i];
+      if (i < prevDates.length) { data.classList += ' PrevDate'; }//지난 달의 날짜들 클래스로 표시
+      if (i >= dates.length - nextDates.length) { data.classList += ' NextDate'; }//다음 달의 날짜들 클래스로 표시
+      //일욜이라면 새로 줄 만들어서 삽입
+      if (i % 7 == 0) { row = document.createElement("tr"); data.classList += ' Sunday'; }
+      row.appendChild(data);
+      //토욜이라면 지금까지 줄 테이블에 삽입
+      if (i % 7 == 6) { data.classList += ' Saturday'; tbody.appendChild(row); }
+    }
+  }
+
+  function SeePrevMonth() {
+    if (curMonth == 0) {
+      curYear--;
+      curMonth = 11;
+    }
+    else {
+      curMonth--;
+    }
+    SetYM(curYear, curMonth);
+  }
+
+  function SeeNextMonth() {
+    if (curMonth == 11) {
+      curYear++;
+      curMonth = 0;
+    }
+    else {
+      curMonth++;
+    }
+    SetYM(curYear, curMonth);
+  }
+</script>
+
+<body>
+  <header> 일기장 </header>
+  <div id="mainBody">
+    <div id="mainList">
+      <div class="nav">
+        <button onclick="SeePrevMonth()"> &lt </button>
+        <button onclick="SeeNextMonth()"> &gt </button>
+      </div>
+      <h1 id="year-month"> </h1>
+      <table class="calendar">
+        <thead class="days">
+          <tr>
+            <th class="Sunday"> 일 </td>
+            <th> 월 </td>
+            <th> 화 </td>
+            <th> 수 </td>
+            <th> 목 </td>
+            <th> 금 </td>
+            <th class="Saturday"> 토 </td>
+          </tr>
+        </thead>
+        <tbody class="dates">
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <script> SetYM(curYear, curMonth); </script>
+</body>
+
+</html>
