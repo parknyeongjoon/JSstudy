@@ -29,12 +29,13 @@
           </tr>
         </thead>
         <tbody class="dates">
-        <script> SetYM(curYear, curMonth); </script>
+          <script> SetYM(curYear, curMonth); </script>
         </tbody>
       </table>
     </div>
     <div class="content" id="diaryContent">
-
+      <textarea id="userInput" placeholder="내용을 입력해주세요." cols="80" rows="15"></textarea>
+      <button onclick="diaryContents[selectDate] = document.querySelector('#userInput').value;"> 작성 </button>
     </div>
   </div>
 </body>

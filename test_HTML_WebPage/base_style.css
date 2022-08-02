@@ -47,6 +47,11 @@ td{
   padding: 20px;
 }
 
+#diaryContent>textarea {
+  margin: 30px;
+  font-size: 20px;
+}
+
 .Saturday{
   color:blue;
 }
