@@ -7,7 +7,6 @@ header {
   text-align: center;
   border-bottom: 4px solid;
   margin: 0px;
-  padding-bottom: 15px;
 }
 
 #mainBody{
@@ -54,6 +53,6 @@ td{
 .Sunday{
   color:red;
 }
-.PrevDate, .NextDate{
+.prevDate, .nextDate{
   color: gray;
 }

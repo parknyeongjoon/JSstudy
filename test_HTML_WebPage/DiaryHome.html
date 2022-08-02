@@ -6,11 +6,20 @@
   <link rel="stylesheet" href="base_style.css">
 </head>
 
+<style>
+  #diaryContent>textarea{
+    margin: 30px;
+    font-size: 20px;
+  }
+</style>
+
 <script>
   const date = new Date();
 
   var curYear = date.getFullYear();
   var curMonth = date.getMonth();
+
+  var diaryContents = {};
 
   function SetYM(year, month) {
     //년 월을 표시
@@ -49,14 +58,28 @@
     for (let i = 0; i < dates.length; i++) {
       let data = document.createElement("td");
       data.innerHTML = dates[i];
-      if (i < prevDates.length) { data.classList += ' PrevDate'; }//지난 달의 날짜들 클래스로 표시
-      if (i >= dates.length - nextDates.length) { data.classList += ' NextDate'; }//다음 달의 날짜들 클래스로 표시
+      if (i < prevDates.length) {
+        data.classList += ' prevDate';
+        data.addEventListener('click', SeePrevMonth);//지난 달 날짜를 누르면 SeePrevMonth 함수 실행
+      }//지난 달의 날짜들 클래스로 표시
+      else if (i >= dates.length - nextDates.length) {
+        data.classList += ' nextDate';
+        data.addEventListener('click', SeeNextMonth);//다음 달 날짜를 누르면 SeeNextMonth 함수 실행
+      }//다음 달의 날짜들 클래스로 표시
+      data.classList += ' date';
+      data.addEventListener('click', DateClick);
       //일욜이라면 새로 줄 만들어서 삽입
       if (i % 7 == 0) { row = document.createElement("tr"); data.classList += ' Sunday'; }
       row.appendChild(data);
       //토욜이라면 지금까지 줄 테이블에 삽입
       if (i % 7 == 6) { data.classList += ' Saturday'; tbody.appendChild(row); }
+      //각 날짜별로 함수 넣어주기
     }
+  }
+
+  function DateClick() {
+    var data = curYear + '.' + (curMonth + 1) + '.' + event.target.innerHTML;
+    ShowContent(data);
   }
 
   function SeePrevMonth() {
@@ -80,17 +103,29 @@
     }
     SetYM(curYear, curMonth);
   }
+
+  function ShowContent(data) {
+    var contentBox = document.querySelector('#diaryContent');
+    if (diaryContents[data]) {
+      contentBox.textContent = diaryContents[data];
+    }
+    else {
+      var ta = document.createElement("textarea");
+      ta.style.width = 240
+      contentBox.appendChild(document.createElement("textarea"));
+    }
+  }
 </script>
 
 <body>
   <header> 일기장 </header>
   <div id="mainBody">
     <div id="mainList">
+      <h1 id="year-month"> </h1>
       <div class="nav">
         <button onclick="SeePrevMonth()"> &lt </button>
         <button onclick="SeeNextMonth()"> &gt </button>
       </div>
-      <h1 id="year-month"> </h1>
       <table class="calendar">
         <thead class="days">
           <tr>
@@ -103,13 +138,15 @@
             <th class="Saturday"> 토 </td>
           </tr>
         </thead>
-        <tbody class="dates">
-
+        <tbody class="dates" /*onclick="location.href='DiaryContents.html'" * />
+        <script> SetYM(curYear, curMonth); </script>
         </tbody>
       </table>
     </div>
+    <div class="content" id="diaryContent">
+
+    </div>
   </div>
-  <script> SetYM(curYear, curMonth); </script>
 </body>
 
 </html>
